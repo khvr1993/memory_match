@@ -22,6 +22,7 @@ export interface MemoryTheme {
   tagline: string;
   icon: string;
   backIcon: string;
+  assetDir?: string;
   symbols: MemorySymbol[];
 }
 

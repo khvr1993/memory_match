@@ -28,7 +28,7 @@ export const MemoryCardTile: React.FC<MemoryCardTileProps> = ({
   const showImage = Boolean(symbol.image) && !imageFailed;
   const isVector = Boolean(symbol.image?.endsWith('.svg'));
   const label = faceUp
-    ? `${symbol.name}${matched ? ', matched' : ''}`
+    ? `${symbol.name}${symbol.hint ? `, ${symbol.hint}` : ''}${matched ? ', matched' : ''}`
     : 'Hidden card, press to flip';
 
   return (
@@ -47,6 +47,7 @@ export const MemoryCardTile: React.FC<MemoryCardTileProps> = ({
       onClick={() => onFlip(card.uid)}
       disabled={disabled || matched}
       aria-label={label}
+      title={faceUp && symbol.hint ? symbol.hint : undefined}
       aria-hidden={peeking && !faceUp ? true : undefined}
     >
       <span className="mm-card-inner">
@@ -57,7 +58,7 @@ export const MemoryCardTile: React.FC<MemoryCardTileProps> = ({
           <span className="mm-back-sparkle mm-back-sparkle-a">✦</span>
           <span className="mm-back-sparkle mm-back-sparkle-b">✦</span>
         </span>
-        <span className={`mm-face mm-face-front ${showImage ? 'is-photo' : ''}`}>
+        <span className="mm-face mm-face-front is-photo">
           {showImage ? (
             <span
               className={`mm-card-portrait-wrap ${isVector ? 'is-vector' : ''}`}
@@ -79,8 +80,10 @@ export const MemoryCardTile: React.FC<MemoryCardTileProps> = ({
               />
             </span>
           ) : (
-            <span className="mm-card-emoji" aria-hidden="true">
-              {symbol.emoji}
+            <span className="mm-card-portrait-wrap is-emoji">
+              <span className="mm-card-emoji" aria-hidden="true">
+                {symbol.emoji}
+              </span>
             </span>
           )}
           <span className="mm-card-name">{symbol.name}</span>

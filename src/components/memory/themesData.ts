@@ -186,6 +186,7 @@ export const THEMES: MemoryTheme[] = [
     tagline: 'Team up with legendary Marvel and DC heroes!',
     icon: '🦸',
     backIcon: '💥',
+    assetDir: 'heroes',
     symbols: [
       { id: 'spider-man', name: 'Spider-Man', emoji: '🦸‍♂️', image: 'heroes/spider-man.jpg', accent: '#DC2626', hint: 'Friendly neighbourhood hero' },
       { id: 'batman', name: 'Batman', emoji: '🕵️‍♂️', image: 'heroes/batman.jpg', accent: '#334155', hint: 'Gotham guardian' },

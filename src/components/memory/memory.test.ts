@@ -1,5 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { MemoryCardTile } from './MemoryCard';
+import type { MemoryCard, MemorySymbol } from './types';
 import {
   STICKER_STORAGE_KEY,
   buildDeck,
@@ -227,6 +233,66 @@ test('the three-star limit matches the star thresholds', () => {
   assert.equal(computeStars(getThreeStarLimit(6) + 1, 6), 2);
   assert.equal(getThreeStarLimit(8), 14);
   assert.equal(computeStars(14, 8), 3);
+});
+
+function renderCardMarkup(symbol: MemorySymbol, faceUp = true): string {
+  const card: MemoryCard = { uid: `${symbol.id}-a`, pairId: symbol.id, symbol };
+  return renderToStaticMarkup(
+    React.createElement(MemoryCardTile, {
+      card,
+      faceUp,
+      matched: false,
+      wobbly: false,
+      disabled: false,
+      peeking: false,
+      backIcon: '★',
+      onFlip: () => undefined,
+    })
+  );
+}
+
+test('superhero cards keep the image portrait layout', () => {
+  const hero = getTheme('superheroes').symbols.find((symbol) => symbol.image);
+  if (!hero) throw new Error('superheroes theme has no image');
+  const html = renderCardMarkup(hero);
+
+  assert.ok(html.includes('mm-face mm-face-front is-photo'));
+  assert.ok(html.includes('mm-card-portrait-wrap'));
+  assert.ok(html.includes('<img'));
+  assert.equal(html.includes('is-emoji'), false);
+});
+
+test('emoji cards use the full-bleed emoji tile', () => {
+  const animal = getTheme('animals').symbols[0];
+  const html = renderCardMarkup(animal);
+
+  assert.ok(html.includes('mm-face mm-face-front is-photo'));
+  assert.ok(html.includes('mm-card-portrait-wrap is-emoji'));
+  assert.ok(html.includes('mm-card-emoji'));
+  assert.ok(html.includes('aria-label="Lion, King of the jungle"'));
+  assert.ok(html.includes('title="King of the jungle"'));
+});
+
+test('theme images are isolated by asset directory and exist', () => {
+  const publicDir = resolve(process.cwd(), 'public');
+  const seen = new Set<string>();
+
+  for (const theme of THEMES) {
+    for (const symbol of theme.symbols) {
+      if (!symbol.image) continue;
+      assert.ok(theme.assetDir, `${theme.id} has an image without assetDir`);
+      assert.ok(
+        symbol.image.startsWith(`${theme.assetDir}/`),
+        `${symbol.image} is outside ${theme.assetDir}/`
+      );
+      assert.ok(
+        existsSync(resolve(publicDir, symbol.image)),
+        `${symbol.image} is missing from public/`
+      );
+      assert.ok(!seen.has(symbol.image), `${symbol.image} is used by another theme`);
+      seen.add(symbol.image);
+    }
+  }
 });
 
 test('superheroes theme includes 24 Marvel and DC heroes with portrait images', () => {
