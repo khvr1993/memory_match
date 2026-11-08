@@ -129,13 +129,6 @@ button {
   text-align: center;
 }
 
-.mm-footer-note {
-  font-size: 0.6rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  opacity: 0.72;
-}
-
 @media (max-width: 640px) {
   .mm-app-bar {
     padding: 12px 12px 0;

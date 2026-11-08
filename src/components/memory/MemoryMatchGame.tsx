@@ -35,6 +35,15 @@ const CONFETTI_COLORS = ['#F97316', '#F43F5E', '#8B5CF6', '#06B6D4', '#22C55E', 
 
 const DEFAULT_THEME: ThemeId = 'animals';
 const DEFAULT_DIFFICULTY: DifficultyId = 'explorer';
+const HERO_DARK_KEY = 'memory_match_hero_dark';
+
+const readHeroDark = () => {
+  try {
+    return window.localStorage.getItem(HERO_DARK_KEY) === 'true';
+  } catch {
+    return false;
+  }
+};
 
 export const MemoryMatchGame: React.FC = () => {
   const { soundEnabled } = useGame();
@@ -59,6 +68,7 @@ export const MemoryMatchGame: React.FC = () => {
   const [showConfetti, setShowConfetti] = useState(false);
   const [albumOpen, setAlbumOpen] = useState(false);
   const [stickers, setStickers] = useState<StickerRecord[]>(() => readStickers());
+  const [heroDark, setHeroDark] = useState(() => readHeroDark());
 
   const flippedRef = useRef<string[]>([]);
   const matchedRef = useRef<Set<string>>(new Set());
@@ -78,6 +88,7 @@ export const MemoryMatchGame: React.FC = () => {
   const theme = getTheme(themeId);
   const difficulty = getDifficulty(difficultyId);
   const isDuo = mode === 'duo';
+  const isHeroDark = themeId === 'superheroes' && heroDark;
   const pairsFound = matched.size / 2;
   const collectedCount = stickers.filter((sticker) =>
     THEMES.some((item) => item.id === sticker.themeId)
@@ -97,6 +108,14 @@ export const MemoryMatchGame: React.FC = () => {
   useEffect(() => {
     memorySounds.enabled = soundEnabled;
   }, [soundEnabled]);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(HERO_DARK_KEY, String(heroDark));
+    } catch {
+      // Storage can be unavailable in private browsing; the toggle still works for the session.
+    }
+  }, [heroDark]);
 
   useEffect(
     () => () => {
@@ -259,6 +278,8 @@ export const MemoryMatchGame: React.FC = () => {
 
   const closeAlbum = useCallback(() => setAlbumOpen(false), []);
 
+  const toggleHeroDark = () => setHeroDark((previous) => !previous);
+
   const confetti = useMemo(() => {
     if (!showConfetti) return [];
     return Array.from({ length: 46 }, (_, index) => ({
@@ -273,7 +294,7 @@ export const MemoryMatchGame: React.FC = () => {
   }, [showConfetti, victory]);
 
   return (
-    <div className={`memory-game theme-${themeId}`}>
+    <div className={`memory-game theme-${themeId} ${isHeroDark ? 'is-hero-dark' : ''}`}>
       <section className="mm-hero">
         <div className="mm-hero-mascots" aria-hidden="true">
           <span>🐻</span>
@@ -297,6 +318,18 @@ export const MemoryMatchGame: React.FC = () => {
           <button type="button" className="mm-btn mm-btn-ghost" onClick={() => startGame()}>
             <span aria-hidden="true">🔄</span> New Game
           </button>
+          {themeId === 'superheroes' && (
+            <button
+              type="button"
+              className={`mm-btn mm-btn-ghost mm-dark-toggle ${heroDark ? 'is-active' : ''}`}
+              onClick={toggleHeroDark}
+              aria-pressed={heroDark}
+              aria-label={heroDark ? 'Switch superheroes to light mode' : 'Switch superheroes to dark mode'}
+            >
+              <span aria-hidden="true">{heroDark ? '☀️' : '🌙'}</span>
+              {heroDark ? 'Light Mode' : 'Dark Mode'}
+            </button>
+          )}
         </div>
       </section>
 

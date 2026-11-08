@@ -36,9 +36,6 @@ export default function App() {
 
       <footer className="mm-footer">
         <span>Made for little memory superstars ✨</span>
-        <span className="mm-footer-note">
-          Fan-made game. Marvel and DC characters belong to their respective owners.
-        </span>
       </footer>
     </div>
   );

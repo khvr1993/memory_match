@@ -60,6 +60,202 @@
   --mm-back-image: linear-gradient(135deg, #ef4444, #1d4ed8 55%, #f59e0b);
 }
 
+/* ---------- Superheroes dark mode ---------- */
+
+.memory-game.is-hero-dark {
+  --mm-ink: #f5f2ff;
+  --mm-muted: #bbb3d8;
+  --mm-soft: #a79dc8;
+  --mm-cream: #12112a;
+  --mm-line: rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(1100px 380px at 6% -12%, rgba(239, 68, 68, 0.28), transparent 62%),
+    radial-gradient(900px 340px at 96% -4%, rgba(37, 99, 235, 0.34), transparent 58%),
+    radial-gradient(700px 300px at 50% 110%, rgba(245, 158, 11, 0.16), transparent 60%),
+    var(--mm-cream);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 24px 70px rgba(4, 4, 18, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.memory-game.is-hero-dark::before {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1.2px, transparent 1.3px);
+}
+
+.memory-game.is-hero-dark .mm-hero h1 {
+  color: #f8f5ff;
+}
+
+.memory-game.is-hero-dark .mm-hero-mascots {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.32);
+}
+
+.memory-game.is-hero-dark .mm-kicker {
+  background: #2c2350;
+  color: #d8b4fe;
+}
+
+.memory-game.is-hero-dark .mm-btn-ghost {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #ece7ff;
+}
+
+.memory-game.is-hero-dark .mm-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.memory-game.is-hero-dark .mm-theme-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #cfc7e6;
+}
+
+.memory-game.is-hero-dark .mm-theme-pill:hover {
+  border-color: rgba(168, 85, 247, 0.55);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.memory-game.is-hero-dark .mm-theme-pill.is-active {
+  border-color: #a855f7;
+  background: linear-gradient(160deg, #2c2150, #3b2a63);
+  color: #e9d5ff;
+  box-shadow: 0 6px 16px rgba(88, 28, 135, 0.45);
+}
+
+.memory-game.is-hero-dark .mm-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #cfc7e6;
+}
+
+.memory-game.is-hero-dark .mm-pill:hover {
+  border-color: rgba(168, 85, 247, 0.55);
+}
+
+.memory-game.is-hero-dark .mm-pill.is-active {
+  background: linear-gradient(135deg, #7c3aed, #db2777);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(124, 58, 237, 0.4);
+}
+
+.memory-game.is-hero-dark .mm-mode-switch {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.memory-game.is-hero-dark .mm-mode-switch button {
+  color: #b9b1d6;
+}
+
+.memory-game.is-hero-dark .mm-scoreboard {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.memory-game.is-hero-dark .mm-stat-bubble {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.memory-game.is-hero-dark .mm-stat-bubble span,
+.memory-game.is-hero-dark .mm-victory-sticker-copy span,
+.memory-game.is-hero-dark .mm-sticker-sub,
+.memory-game.is-hero-dark .mm-victory-stats span {
+  color: #a79dc8;
+}
+
+.memory-game.is-hero-dark .mm-player-chip {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.memory-game.is-hero-dark .mm-face-front {
+  background-color: #1c1a38;
+  background-image: linear-gradient(160deg, #262248 0%, #191735 62%);
+  border-color: color-mix(in srgb, var(--card-accent, #8b5cf6) 46%, #1c1a38);
+  box-shadow: 0 10px 22px rgba(4, 4, 18, 0.45);
+}
+
+.memory-game.is-hero-dark .mm-face-front::before {
+  opacity: 0.24;
+}
+
+.memory-game.is-hero-dark .mm-card-name {
+  color: #f2eeff;
+}
+
+.memory-game.is-hero-dark .mm-modal {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: linear-gradient(180deg, #211e42, #171530);
+  box-shadow: 0 30px 80px rgba(4, 4, 18, 0.65);
+}
+
+.memory-game.is-hero-dark .mm-modal h2 {
+  color: #f5f2ff;
+}
+
+.memory-game.is-hero-dark .mm-close-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #d8b4fe;
+}
+
+.memory-game.is-hero-dark .mm-close-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.memory-game.is-hero-dark .mm-progress {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.memory-game.is-hero-dark .mm-album-theme h3 {
+  color: #cfc7e6;
+}
+
+.memory-game.is-hero-dark .mm-sticker {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.memory-game.is-hero-dark .mm-sticker.is-earned {
+  border-color: #fbbf24;
+  background: linear-gradient(160deg, #3a2f18, #221f3f);
+  box-shadow: 0 6px 14px rgba(245, 158, 11, 0.2);
+}
+
+.memory-game.is-hero-dark .mm-sticker-name {
+  color: #e9e3ff;
+}
+
+.memory-game.is-hero-dark .mm-victory-line {
+  color: #c3bbdd;
+}
+
+.memory-game.is-hero-dark .mm-victory-sticker {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(251, 191, 36, 0.45);
+}
+
+.memory-game.is-hero-dark .mm-victory-sticker-copy strong {
+  color: #f5f2ff;
+}
+
+.memory-game.is-hero-dark .mm-victory-stats > div {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.memory-game.is-hero-dark .mm-victory-stats strong {
+  color: #f5f2ff;
+}
+
+.memory-game.is-hero-dark .mm-dark-toggle.is-active,
+.memory-game.is-hero-dark .mm-dark-toggle.is-active:hover {
+  background: linear-gradient(135deg, #6d28d9, #db2777);
+  border-color: transparent;
+  color: #fff;
+}
+
 /* ---------- Hero ---------- */
 
 .mm-hero {
@@ -174,6 +370,13 @@
 
 .mm-btn-ghost:hover {
   background: #fbf8ff;
+}
+
+.mm-dark-toggle.is-active,
+.mm-dark-toggle.is-active:hover {
+  background: linear-gradient(135deg, #312b4a, #6d28d9);
+  border-color: transparent;
+  color: #fff;
 }
 
 .mm-btn-sticker {
