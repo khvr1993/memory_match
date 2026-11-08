@@ -26,6 +26,7 @@ export const MemoryCardTile: React.FC<MemoryCardTileProps> = ({
   const [imageFailed, setImageFailed] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const showImage = Boolean(symbol.image) && !imageFailed;
+  const isVector = Boolean(symbol.image?.endsWith('.svg'));
   const label = faceUp
     ? `${symbol.name}${matched ? ', matched' : ''}`
     : 'Hidden card, press to flip';
@@ -56,10 +57,10 @@ export const MemoryCardTile: React.FC<MemoryCardTileProps> = ({
           <span className="mm-back-sparkle mm-back-sparkle-a">✦</span>
           <span className="mm-back-sparkle mm-back-sparkle-b">✦</span>
         </span>
-        <span className="mm-face mm-face-front">
+        <span className={`mm-face mm-face-front ${showImage ? 'is-photo' : ''}`}>
           {showImage ? (
             <span
-              className="mm-card-portrait-wrap"
+              className={`mm-card-portrait-wrap ${isVector ? 'is-vector' : ''}`}
               style={{ '--card-accent': symbol.accent } as React.CSSProperties}
             >
               <span className="mm-card-portrait-fallback" aria-hidden="true">

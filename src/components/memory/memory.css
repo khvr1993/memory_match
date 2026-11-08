@@ -1005,6 +1005,55 @@
   opacity: 1;
 }
 
+.mm-card-portrait-wrap.is-vector .mm-card-portrait {
+  transform: scale(1.16);
+}
+
+.mm-board .mm-face-front.is-photo {
+  padding: 0;
+}
+
+.mm-face-front.is-photo::before {
+  opacity: 0;
+}
+
+.mm-face-front.is-photo .mm-card-portrait-wrap {
+  position: absolute;
+  inset: 3%;
+  width: auto;
+  height: auto;
+  max-width: none;
+  aspect-ratio: auto;
+  border-radius: 12px;
+}
+
+.mm-face-front.is-photo .mm-card-name {
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  z-index: 2;
+  width: max-content;
+  max-width: 92%;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.78);
+  color: #fff;
+  line-height: 1.1;
+  text-shadow: 0 1px 3px rgba(15, 23, 42, 0.6);
+  transform: translateX(-50%);
+}
+
+.mm-face-front.is-photo .mm-card-hint {
+  display: none;
+}
+
+.mm-face-front.is-photo .mm-matched-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 3;
+}
+
 .mm-card-name {
   display: -webkit-box;
   -webkit-line-clamp: 2;
