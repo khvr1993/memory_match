@@ -34,7 +34,12 @@ export default function App() {
         <MemoryMatchGame />
       </main>
 
-      <footer className="mm-footer">Made for little memory superstars ✨</footer>
+      <footer className="mm-footer">
+        <span>Made for little memory superstars ✨</span>
+        <span className="mm-footer-note">
+          Fan-made game. Marvel and DC characters belong to their respective owners.
+        </span>
+      </footer>
     </div>
   );
 }

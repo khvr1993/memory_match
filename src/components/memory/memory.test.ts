@@ -165,3 +165,19 @@ test('legend is a 5x5 board with 12 pairs and a lucky center cell', () => {
   assert.equal(deck.length, 24);
   assert.equal(new Set(deck.map((card) => card.pairId)).size, 12);
 });
+
+test('superheroes theme includes Marvel and DC heroes', () => {
+  const heroes = getTheme('superheroes');
+  assert.ok(heroes.symbols.length >= 12);
+  const names = heroes.symbols.map((symbol) => symbol.name);
+  for (const name of [
+    'Spider-Man',
+    'Batman',
+    'Superman',
+    'Wonder Woman',
+    'Iron Man',
+    'Captain America',
+  ]) {
+    assert.ok(names.includes(name), `${name} is missing from the superheroes theme`);
+  }
+});

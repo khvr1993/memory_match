@@ -118,12 +118,22 @@ button {
 }
 
 .mm-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
   padding: 0 16px 28px;
   color: rgba(247, 243, 255, 0.45);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-align: center;
+}
+
+.mm-footer-note {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  opacity: 0.72;
 }
 
 @media (max-width: 640px) {

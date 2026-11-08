@@ -119,6 +119,28 @@ export const THEMES: MemoryTheme[] = [
       { id: 'scooter', name: 'Scooter', emoji: '🛵', accent: '#8B5CF6', hint: 'Zip around' },
     ],
   },
+  {
+    id: 'superheroes',
+    name: 'Superheroes',
+    shortName: 'Heroes',
+    tagline: 'Team up with legendary Marvel and DC heroes!',
+    icon: '🦸',
+    backIcon: '💥',
+    symbols: [
+      { id: 'spider-man', name: 'Spider-Man', emoji: '🕷️', accent: '#DC2626', hint: 'Web-slinger' },
+      { id: 'batman', name: 'Batman', emoji: '🦇', accent: '#334155', hint: 'Gotham guardian' },
+      { id: 'superman', name: 'Superman', emoji: '🦸', accent: '#2563EB', hint: 'Man of Steel' },
+      { id: 'wonder-woman', name: 'Wonder Woman', emoji: '🦸‍♀️', accent: '#E11D48', hint: 'Amazon hero' },
+      { id: 'iron-man', name: 'Iron Man', emoji: '🤖', accent: '#B91C1C', hint: 'Armoured genius' },
+      { id: 'captain-america', name: 'Captain America', emoji: '🛡️', accent: '#1D4ED8', hint: 'Star-spangled shield' },
+      { id: 'thor', name: 'Thor', emoji: '🔨', accent: '#64748B', hint: 'Thunder hammer' },
+      { id: 'hulk', name: 'Hulk', emoji: '💪', accent: '#16A34A', hint: 'Smash strong' },
+      { id: 'flash', name: 'The Flash', emoji: '⚡', accent: '#F59E0B', hint: 'Fastest hero' },
+      { id: 'aquaman', name: 'Aquaman', emoji: '🔱', accent: '#0891B2', hint: 'Ocean king' },
+      { id: 'black-panther', name: 'Black Panther', emoji: '🐆', accent: '#4C1D95', hint: 'Wakanda forever' },
+      { id: 'doctor-strange', name: 'Doctor Strange', emoji: '🪄', accent: '#7C3AED', hint: 'Mystic magic' },
+    ],
+  },
 ];
 
 export const DIFFICULTIES: Difficulty[] = [

@@ -56,6 +56,10 @@
   --mm-back-image: linear-gradient(135deg, #2563eb, #06b6d4);
 }
 
+.memory-game.theme-superheroes {
+  --mm-back-image: linear-gradient(135deg, #ef4444, #1d4ed8 55%, #f59e0b);
+}
+
 /* ---------- Hero ---------- */
 
 .mm-hero {
