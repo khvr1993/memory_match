@@ -283,6 +283,8 @@ test('the game opens on setup without a board, stats, or mascots', () => {
   assert.ok(html.includes('Pick a theme'));
   assert.ok(html.includes('Choose a size'));
   assert.ok(html.includes('Start game'));
+  assert.ok(html.includes('Sticker Book'));
+  assert.ok(html.includes('mm-hero-title'));
   assert.ok(html.includes('mm-controls'));
   assert.equal(html.includes('mm-board'), false);
   assert.equal(html.includes('mm-scoreboard'), false);

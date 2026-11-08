@@ -617,17 +617,24 @@ export const MemoryMatchGame: React.FC = () => {
         <div className="mm-hero-copy">
           <span className="mm-kicker">Kids Corner · Ages 4+</span>
           <h1>
-            Memory Match <span className="mm-hero-spark" aria-hidden="true">✨</span>
+            <span className="mm-hero-title">Memory Match</span>{' '}
+            <span className="mm-hero-spark" aria-hidden="true">✨</span>
           </h1>
           <p>{theme.tagline}</p>
         </div>
         <div className="mm-hero-actions">
-          <button type="button" className="mm-btn mm-btn-sticker" onClick={() => setAlbumOpen(true)}>
-            <span aria-hidden="true">📖</span> Sticker Book
-            <span className="mm-count-badge">
-              {collectedCount}/{TOTAL_STICKERS}
-            </span>
-          </button>
+          {view === 'setup' && (
+            <button
+              type="button"
+              className="mm-btn mm-btn-sticker"
+              onClick={() => setAlbumOpen(true)}
+            >
+              <span aria-hidden="true">📖</span> Sticker Book
+              <span className="mm-count-badge">
+                {collectedCount}/{TOTAL_STICKERS}
+              </span>
+            </button>
+          )}
           <button
             type="button"
             className={`mm-btn mm-btn-daily ${dailyDoneToday ? 'is-done' : ''}`}
@@ -1036,9 +1043,6 @@ export const MemoryMatchGame: React.FC = () => {
           </div>
 
           <div className="mm-modal-footer mm-victory-actions">
-            <button type="button" className="mm-btn mm-btn-ghost" onClick={() => setAlbumOpen(true)}>
-              <span aria-hidden="true">📖</span> Sticker Book
-            </button>
             {victoryNextLevel && (
               <button
                 type="button"
