@@ -145,9 +145,9 @@ test('readStickers ignores malformed entries', () => {
   assert.equal(stickers[0].id, 'animals:toddler');
 });
 
-test('every theme has enough symbols for the 5x5 legend board', () => {
+test('every theme has enough symbols for the 7x7 mythic board', () => {
   for (const theme of THEMES) {
-    assert.ok(theme.symbols.length >= 12, `${theme.id} needs at least 12 symbols`);
+    assert.ok(theme.symbols.length >= 24, `${theme.id} needs at least 24 symbols`);
     const ids = new Set(theme.symbols.map((symbol) => symbol.id));
     assert.equal(ids.size, theme.symbols.length, `${theme.id} has duplicate symbol ids`);
   }
@@ -166,9 +166,35 @@ test('legend is a 5x5 board with 12 pairs and a lucky center cell', () => {
   assert.equal(new Set(deck.map((card) => card.pairId)).size, 12);
 });
 
-test('superheroes theme includes Marvel and DC heroes', () => {
+test('master is a 6x6 board with 18 pairs and 36 cards', () => {
+  const master = DIFFICULTIES.find((difficulty) => difficulty.id === 'master');
+  if (!master) throw new Error('master difficulty is missing');
+  assert.equal(master.gridLabel, '6 × 6');
+  assert.equal(master.columns, 6);
+  assert.equal(master.pairs, 18);
+  assert.equal(Boolean(master.centerStar), false);
+
+  const deck = buildDeck(getTheme('fruits'), master, seededRandom(19));
+  assert.equal(deck.length, 36);
+  assert.equal(new Set(deck.map((card) => card.pairId)).size, 18);
+});
+
+test('mythic is a 7x7 board with 24 pairs, 48 cards, and a lucky center cell', () => {
+  const mythic = DIFFICULTIES.find((difficulty) => difficulty.id === 'mythic');
+  if (!mythic) throw new Error('mythic difficulty is missing');
+  assert.equal(mythic.gridLabel, '7 × 7');
+  assert.equal(mythic.columns, 7);
+  assert.equal(mythic.pairs, 24);
+  assert.equal(mythic.centerStar, true);
+
+  const deck = buildDeck(getTheme('superheroes'), mythic, seededRandom(29));
+  assert.equal(deck.length, 48);
+  assert.equal(new Set(deck.map((card) => card.pairId)).size, 24);
+});
+
+test('superheroes theme includes 24 Marvel and DC heroes with portrait images', () => {
   const heroes = getTheme('superheroes');
-  assert.ok(heroes.symbols.length >= 12);
+  assert.ok(heroes.symbols.length >= 24);
   const names = heroes.symbols.map((symbol) => symbol.name);
   for (const name of [
     'Spider-Man',
@@ -177,7 +203,14 @@ test('superheroes theme includes Marvel and DC heroes', () => {
     'Wonder Woman',
     'Iron Man',
     'Captain America',
+    'Wolverine',
+    'Captain Marvel',
+    'Green Lantern',
+    'Scarlet Witch',
   ]) {
     assert.ok(names.includes(name), `${name} is missing from the superheroes theme`);
+  }
+  for (const symbol of heroes.symbols) {
+    assert.ok(symbol.image, `${symbol.name} is missing a portrait image`);
   }
 });

@@ -1,6 +1,6 @@
 export type ThemeId = 'animals' | 'fruits' | 'india' | 'shapes' | 'vehicles' | 'superheroes';
 
-export type DifficultyId = 'toddler' | 'easy' | 'explorer' | 'champion' | 'legend';
+export type DifficultyId = 'toddler' | 'easy' | 'explorer' | 'champion' | 'legend' | 'master' | 'mythic';
 
 export type GameMode = 'solo' | 'duo';
 

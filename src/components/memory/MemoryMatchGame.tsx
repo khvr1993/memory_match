@@ -270,10 +270,11 @@ export const MemoryMatchGame: React.FC = () => {
     setPeeking(true);
     setPeeksLeft((previous) => previous - 1);
     memorySounds.peek();
+    const peekDuration = difficulty.columns >= 7 ? 3500 : difficulty.columns >= 6 ? 3000 : 2000;
     later(() => {
       peekingRef.current = false;
       setPeeking(false);
-    }, 2000);
+    }, peekDuration);
   };
 
   const closeAlbum = useCallback(() => setAlbumOpen(false), []);
@@ -467,7 +468,14 @@ export const MemoryMatchGame: React.FC = () => {
           </div>
         )}
         <div
-          className={`mm-board ${difficulty.columns >= 5 ? 'is-dense' : ''}`}
+          className={[
+            'mm-board',
+            difficulty.columns >= 5 ? 'is-dense' : '',
+            difficulty.columns >= 6 ? 'is-ultra-dense' : '',
+            difficulty.columns >= 7 ? 'is-mega-dense' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
           style={{ '--mm-cols': difficulty.columns } as React.CSSProperties}
         >
           {cards.map((card, index) => (
