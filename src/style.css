@@ -1,0 +1,157 @@
+:root {
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-family);
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(900px 520px at 10% -10%, rgba(139, 92, 246, 0.36), transparent 62%),
+    radial-gradient(820px 520px at 92% -4%, rgba(236, 72, 153, 0.24), transparent 60%),
+    radial-gradient(700px 420px at 50% 110%, rgba(6, 182, 212, 0.14), transparent 62%),
+    #141126;
+  color: #f7f3ff;
+}
+
+button {
+  font-family: inherit;
+}
+
+.mm-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.mm-app-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 18px 16px 0;
+}
+
+.mm-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mm-brand-badge {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  border-radius: 14px;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  font-size: 1.25rem;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.3);
+}
+
+.mm-brand-copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.mm-brand-copy strong {
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.mm-brand-copy small {
+  color: rgba(247, 243, 255, 0.62);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mm-sound-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f7f3ff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.mm-sound-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px);
+}
+
+.mm-sound-btn[aria-pressed='false'] {
+  color: rgba(247, 243, 255, 0.55);
+}
+
+.mm-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 16px 16px 40px;
+}
+
+.mm-footer {
+  padding: 0 16px 28px;
+  color: rgba(247, 243, 255, 0.45);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .mm-app-bar {
+    padding: 12px 12px 0;
+  }
+
+  .mm-brand-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    font-size: 1.05rem;
+  }
+
+  .mm-brand-copy strong {
+    font-size: 0.92rem;
+  }
+
+  .mm-sound-label {
+    display: none;
+  }
+
+  .mm-sound-btn {
+    padding: 8px 11px;
+    font-size: 0.9rem;
+  }
+
+  .mm-main {
+    padding: 12px 12px 28px;
+  }
+}
