@@ -533,13 +533,9 @@ export const MemoryMatchGame: React.FC = () => {
                 ? "It's a tie!"
                 : victory.winner
                   ? `${PLAYERS[victory.winner].emoji} ${PLAYERS[victory.winner].name} wins!`
-                  : 'You did it!'}
+                  : 'Board cleared!'}
             </h2>
-            <p className="mm-victory-line">
-              {isDuo
-                ? 'High fives, Teddy and Bunny! You cleared the whole board!'
-                : `You found all ${difficulty.pairs} pairs. You are a memory superstar!`}
-            </p>
+            <p className="mm-victory-line">All {difficulty.pairs} pairs found.</p>
 
             <div className="mm-victory-sticker">
               <span className="mm-victory-sticker-emoji" aria-hidden="true">

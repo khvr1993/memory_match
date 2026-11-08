@@ -186,6 +186,11 @@
   color: #f2eeff;
 }
 
+.memory-game.is-hero-dark .mm-card-portrait {
+  border-color: color-mix(in srgb, var(--card-accent, #8b5cf6) 55%, #1c1a38);
+  box-shadow: 0 5px 14px rgba(4, 4, 18, 0.5);
+}
+
 .memory-game.is-hero-dark .mm-modal {
   border-color: rgba(255, 255, 255, 0.14);
   background: linear-gradient(180deg, #211e42, #171530);
@@ -916,6 +921,20 @@
   font-size: clamp(1.75rem, 5.2vw, 3.2rem);
   line-height: 1;
   filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.14));
+}
+
+.mm-card-portrait {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 68%;
+  max-width: 118px;
+  aspect-ratio: 1;
+  border: 2px solid color-mix(in srgb, var(--card-accent, #8b5cf6) 55%, #ffffff);
+  border-radius: 14px;
+  background: #ffffff;
+  object-fit: cover;
+  box-shadow: 0 5px 12px rgba(49, 43, 74, 0.2);
 }
 
 .mm-card-name {

@@ -10,6 +10,7 @@ export interface MemorySymbol {
   id: string;
   name: string;
   emoji: string;
+  image?: string;
   accent: string;
   hint?: string;
 }

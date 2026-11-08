@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { MemoryCard } from './types';
 
 interface MemoryCardTileProps {
@@ -23,6 +23,8 @@ export const MemoryCardTile: React.FC<MemoryCardTileProps> = ({
   onFlip,
 }) => {
   const { symbol } = card;
+  const [imageFailed, setImageFailed] = useState(false);
+  const showImage = Boolean(symbol.image) && !imageFailed;
   const label = faceUp
     ? `${symbol.name}${matched ? ', matched' : ''}`
     : 'Hidden card, press to flip';
@@ -55,9 +57,21 @@ export const MemoryCardTile: React.FC<MemoryCardTileProps> = ({
           <span className="mm-back-sparkle mm-back-sparkle-b">✦</span>
         </span>
         <span className="mm-face mm-face-front">
-          <span className="mm-card-emoji" aria-hidden="true">
-            {symbol.emoji}
-          </span>
+          {showImage ? (
+            <img
+              className="mm-card-portrait"
+              src={symbol.image}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+              onError={() => setImageFailed(true)}
+            />
+          ) : (
+            <span className="mm-card-emoji" aria-hidden="true">
+              {symbol.emoji}
+            </span>
+          )}
           <span className="mm-card-name">{symbol.name}</span>
           {symbol.hint && <span className="mm-card-hint">{symbol.hint}</span>}
           {matched && (
