@@ -4,7 +4,7 @@ import { MemoryMatchGame } from './components/memory/MemoryMatchGame';
 import './components/memory/memory.css';
 
 export default function App() {
-  const { soundEnabled, toggleSound } = useGame();
+  const { soundEnabled, toggleSound, voiceEnabled, toggleVoice } = useGame();
 
   return (
     <div className="mm-app">
@@ -18,16 +18,28 @@ export default function App() {
             <small>Kids Corner</small>
           </span>
         </div>
-        <button
-          type="button"
-          className="mm-sound-btn"
-          onClick={toggleSound}
-          aria-pressed={soundEnabled}
-          aria-label={soundEnabled ? 'Turn sound off' : 'Turn sound on'}
-        >
-          <span aria-hidden="true">{soundEnabled ? '🔊' : '🔇'}</span>
-          <span className="mm-sound-label">{soundEnabled ? 'Sound on' : 'Sound off'}</span>
-        </button>
+        <div className="mm-header-actions">
+          <button
+            type="button"
+            className="mm-sound-btn"
+            onClick={toggleSound}
+            aria-pressed={soundEnabled}
+            aria-label={soundEnabled ? 'Turn sound off' : 'Turn sound on'}
+          >
+            <span aria-hidden="true">{soundEnabled ? '🔊' : '🔇'}</span>
+            <span className="mm-sound-label">{soundEnabled ? 'Sound on' : 'Sound off'}</span>
+          </button>
+          <button
+            type="button"
+            className="mm-sound-btn mm-voice-btn"
+            onClick={toggleVoice}
+            aria-pressed={voiceEnabled}
+            aria-label={voiceEnabled ? 'Turn card names off' : 'Turn card names on'}
+          >
+            <span aria-hidden="true">{voiceEnabled ? '🗣️' : '🤫'}</span>
+            <span className="mm-sound-label">{voiceEnabled ? 'Voice on' : 'Voice off'}</span>
+          </button>
+        </div>
       </header>
 
       <main className="mm-main">

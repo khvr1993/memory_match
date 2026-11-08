@@ -6,7 +6,12 @@ import {
   canFlipCard,
   cardsMatch,
   computeStars,
+  createSeededRandom,
+  getCardGridIndex,
+  getLuckyCellIndex,
+  getThreeStarLimit,
   getWinner,
+  isAdjacentToLuckyCell,
   nextPlayer,
   readStickers,
   shuffle,
@@ -190,6 +195,51 @@ test('mythic is a 7x7 board with 24 pairs, 48 cards, and a lucky center cell', (
   const deck = buildDeck(getTheme('superheroes'), mythic, seededRandom(29));
   assert.equal(deck.length, 48);
   assert.equal(new Set(deck.map((card) => card.pairId)).size, 24);
+});
+
+test('lucky cell sits at the visual center and maps card indexes around it', () => {
+  assert.equal(getLuckyCellIndex(24), 12);
+  assert.equal(getLuckyCellIndex(48), 24);
+  assert.equal(getCardGridIndex(11, 12), 11);
+  assert.equal(getCardGridIndex(12, 12), 13);
+});
+
+test('only the four cards beside the lucky cell earn the bonus on a 5x5 board', () => {
+  for (const index of [7, 11, 12, 16]) {
+    assert.equal(isAdjacentToLuckyCell(index, 24, 5), true, `index ${index} should be adjacent`);
+  }
+  for (const index of [0, 6, 8, 13, 17, 23]) {
+    assert.equal(isAdjacentToLuckyCell(index, 24, 5), false, `index ${index} should not be adjacent`);
+  }
+});
+
+test('only the four cards beside the lucky cell earn the bonus on a 7x7 board', () => {
+  for (const index of [17, 23, 24, 30]) {
+    assert.equal(isAdjacentToLuckyCell(index, 48, 7), true, `index ${index} should be adjacent`);
+  }
+  for (const index of [0, 16, 25, 31, 47]) {
+    assert.equal(isAdjacentToLuckyCell(index, 48, 7), false, `index ${index} should not be adjacent`);
+  }
+});
+
+test('createSeededRandom is deterministic and seed-sensitive', () => {
+  const first = Array.from({ length: 8 }, createSeededRandom('daily-2026-11-08'));
+  const second = Array.from({ length: 8 }, createSeededRandom('daily-2026-11-08'));
+  const other = Array.from({ length: 8 }, createSeededRandom('daily-2026-11-09'));
+
+  assert.deepEqual(first, second);
+  assert.notDeepEqual(first, other);
+  for (const value of first) {
+    assert.ok(value >= 0 && value < 1);
+  }
+});
+
+test('the three-star limit matches the star thresholds', () => {
+  assert.equal(getThreeStarLimit(6), 11);
+  assert.equal(computeStars(getThreeStarLimit(6), 6), 3);
+  assert.equal(computeStars(getThreeStarLimit(6) + 1, 6), 2);
+  assert.equal(getThreeStarLimit(8), 14);
+  assert.equal(computeStars(14, 8), 3);
 });
 
 test('superheroes theme includes 24 Marvel and DC heroes with portrait images', () => {

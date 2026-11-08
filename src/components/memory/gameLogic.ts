@@ -22,6 +22,26 @@ export function shuffle<T>(items: readonly T[], random: RandomFn = Math.random):
   return copy;
 }
 
+export function hashString(input: string): number {
+  let hash = 2166136261;
+  for (let i = 0; i < input.length; i += 1) {
+    hash ^= input.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+export function createSeededRandom(seed: number | string): RandomFn {
+  let state = (typeof seed === 'number' ? seed >>> 0 : hashString(seed)) >>> 0;
+  return () => {
+    state = (state + 0x6d2b79f5) >>> 0;
+    let value = state;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 export function pickSymbols(theme: MemoryTheme, pairs: number, random: RandomFn = Math.random) {
   return shuffle(theme.symbols, random).slice(0, pairs);
 }
@@ -47,12 +67,39 @@ export function canFlipCard(card: MemoryCard, matched: Set<string>, flipped: str
   return !matched.has(card.uid) && !flipped.includes(card.uid);
 }
 
+export function getLuckyCellIndex(cardCount: number): number {
+  return Math.floor(cardCount / 2);
+}
+
+export function getCardGridIndex(cardIndex: number, luckyIndex: number): number {
+  return cardIndex < luckyIndex ? cardIndex : cardIndex + 1;
+}
+
+export function isAdjacentToLuckyCell(
+  cardIndex: number,
+  cardCount: number,
+  columns: number
+): boolean {
+  if (cardIndex < 0 || cardIndex >= cardCount || columns <= 0) return false;
+  const lucky = getLuckyCellIndex(cardCount);
+  const position = getCardGridIndex(cardIndex, lucky);
+  const luckyRow = Math.floor(lucky / columns);
+  const luckyCol = lucky % columns;
+  const row = Math.floor(position / columns);
+  const col = position % columns;
+  return Math.abs(row - luckyRow) + Math.abs(col - luckyCol) === 1;
+}
+
 export function nextPlayer(current: PlayerId): PlayerId {
   return current === 'teddy' ? 'bunny' : 'teddy';
 }
 
+export function getThreeStarLimit(pairs: number): number {
+  return pairs + Math.ceil(pairs * 0.75);
+}
+
 export function computeStars(moves: number, pairs: number): number {
-  if (moves <= pairs + Math.ceil(pairs * 0.75)) return 3;
+  if (moves <= getThreeStarLimit(pairs)) return 3;
   if (moves <= Math.ceil(pairs * 2.5)) return 2;
   return 1;
 }

@@ -1482,7 +1482,9 @@
   }
 
   .mm-hero-actions .mm-btn {
-    flex: 1;
+    flex: 1 1 calc(50% - 8px);
+    padding: 9px 12px;
+    font-size: 0.78rem;
   }
 
   .mm-controls-row {
@@ -1623,6 +1625,644 @@
   }
 
   .mm-confetti {
+    display: none;
+  }
+}
+
+/* ---------- Accessibility helpers ---------- */
+
+.mm-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Daily, bests and lucky star ---------- */
+
+.mm-btn-daily {
+  background: #e0f2fe;
+  color: #075985;
+  border-color: #bae6fd;
+  box-shadow: 0 6px 16px rgba(14, 165, 233, 0.16);
+}
+
+.mm-btn-daily:hover {
+  background: #d7edfd;
+}
+
+.mm-btn-daily.is-done {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #bbf7d0;
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.16);
+}
+
+.mm-daily-flag {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #075985;
+  font-size: 0.68rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.mm-pill.has-best {
+  position: relative;
+}
+
+.mm-pill.has-best::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f59e0b;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.mm-pill.is-perfect::after {
+  background: #22c55e;
+}
+
+.mm-pill.is-active.has-best::after {
+  box-shadow: 0 0 0 2px #312b4a;
+}
+
+.mm-best-bubble strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.mm-lucky-hint {
+  position: relative;
+  z-index: 1;
+  margin: 8px auto 0;
+  color: var(--mm-soft);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.mm-lucky-cell.is-triggered {
+  animation: mm-lucky-glow 0.9s ease;
+}
+
+@keyframes mm-lucky-glow {
+  0%, 100% {
+    box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.45), 0 8px 18px rgba(245, 158, 11, 0.18);
+  }
+  45% {
+    box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.62), 0 0 0 10px rgba(245, 158, 11, 0.28),
+      0 8px 24px rgba(245, 158, 11, 0.4);
+    transform: scale(1.03);
+  }
+}
+
+/* ---------- Toast ---------- */
+
+.mm-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  z-index: 1200;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #312b4a;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.35);
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: mm-toast-in 0.25s ease;
+}
+
+.mm-toast-lucky {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+.mm-toast-best {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+}
+
+@keyframes mm-toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ---------- Restart and victory additions ---------- */
+
+.mm-restart-copy {
+  margin-top: 10px;
+  color: var(--mm-muted);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.mm-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+}
+
+.mm-victory {
+  padding-top: 34px;
+}
+
+.mm-victory-best {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.mm-victory-daily {
+  margin-top: 8px;
+  color: #0369a1;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.mm-victory-daily.is-new {
+  color: #c2410c;
+}
+
+.mm-victory-badge-line {
+  margin-top: 8px;
+  color: #7c3aed;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.mm-complete-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border: 2px dashed #fbbf24;
+  border-radius: 18px;
+  background: #fffbeb;
+  color: #92400e;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.mm-complete-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Album additions ---------- */
+
+.mm-album-stats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.mm-album-stat {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 90px;
+  padding: 8px 12px;
+  border: 1px solid #efe7fb;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.mm-album-stat span {
+  color: #9a90b4;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mm-album-stat strong {
+  color: var(--mm-ink);
+  font-size: 0.98rem;
+}
+
+.mm-progress + .mm-progress {
+  margin-top: -8px;
+}
+
+.mm-progress-stars span {
+  background: linear-gradient(90deg, #f59e0b, #f97316, #ec4899);
+}
+
+.mm-next-goal {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin: 6px 0 14px;
+  padding: 12px 14px;
+  border: 2px dashed #c4b5fd;
+  border-radius: 18px;
+  background: linear-gradient(160deg, #faf5ff, #f3e8ff);
+  color: #4c1d95;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mm-next-goal:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.18);
+}
+
+.mm-next-goal.is-complete {
+  cursor: default;
+  border-color: #fde68a;
+  background: linear-gradient(160deg, #fff7d6, #fffdf5);
+  color: #92400e;
+}
+
+.mm-next-goal-emoji {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.mm-next-goal-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.mm-next-goal-copy strong {
+  font-size: 0.82rem;
+}
+
+.mm-next-goal-copy small {
+  color: #7c6a9c;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.mm-next-goal-cta {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #7c3aed;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.mm-grand-banner {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f59e0b, #ec4899);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(236, 72, 153, 0.25);
+}
+
+.mm-album-badges {
+  margin-bottom: 16px;
+}
+
+.mm-album-badges h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: #4c4568;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.mm-badge-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.mm-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 8px;
+  border: 2px dashed #e6ddf4;
+  border-radius: 16px;
+  background: #fbf8ff;
+  text-align: center;
+}
+
+.mm-badge.is-earned {
+  border-style: solid;
+  border-color: #c4b5fd;
+  background: linear-gradient(160deg, #f5f3ff, #ffffff);
+  box-shadow: 0 6px 14px rgba(139, 92, 246, 0.12);
+}
+
+.mm-badge.is-locked {
+  opacity: 0.62;
+}
+
+.mm-badge-emoji {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.mm-badge.is-locked .mm-badge-emoji {
+  filter: grayscale(1);
+}
+
+.mm-badge-name {
+  color: #4c4568;
+  font-size: 0.64rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.mm-badge-desc {
+  color: #9a90b4;
+  font-size: 0.56rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.mm-album-theme h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.mm-theme-progress {
+  color: #9a90b4;
+  font-size: 0.62rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.mm-sticker {
+  width: 100%;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mm-sticker:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(139, 92, 246, 0.14);
+}
+
+.mm-sticker:focus-visible {
+  outline: 3px solid #a855f7;
+  outline-offset: 2px;
+}
+
+.mm-sticker-stars {
+  color: #b45309;
+  font-size: 0.56rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- How to play ---------- */
+
+.mm-howto {
+  max-width: 640px;
+}
+
+.mm-howto-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.mm-howto-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px;
+  border: 1px solid #efe7fb;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.mm-howto-step strong {
+  color: #312b4a;
+  font-size: 0.82rem;
+}
+
+.mm-howto-step > span:last-child {
+  color: var(--mm-soft);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.mm-howto-index {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  color: #d8ccf5;
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.mm-howto-emoji {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.mm-howto-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: #faf7ff;
+}
+
+.mm-howto-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #5b5478;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* ---------- New dark-mode pieces ---------- */
+
+.memory-game.is-hero-dark .mm-btn-daily {
+  background: rgba(14, 165, 233, 0.16);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #bae6fd;
+}
+
+.memory-game.is-hero-dark .mm-btn-daily.is-done {
+  background: rgba(34, 197, 94, 0.18);
+  border-color: rgba(74, 222, 128, 0.4);
+  color: #bbf7d0;
+}
+
+.memory-game.is-hero-dark .mm-daily-flag {
+  background: rgba(14, 165, 233, 0.18);
+  color: #bae6fd;
+}
+
+.memory-game.is-hero-dark .mm-best-bubble {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.memory-game.is-hero-dark .mm-lucky-hint {
+  color: #bbb3d8;
+}
+
+.memory-game.is-hero-dark .mm-complete-bar {
+  background: linear-gradient(160deg, #3a2f18, #221f3f);
+  border-color: #fbbf24;
+  color: #fde68a;
+}
+
+.memory-game.is-hero-dark .mm-album-stat {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.memory-game.is-hero-dark .mm-album-stat strong {
+  color: #f5f2ff;
+}
+
+.memory-game.is-hero-dark .mm-album-badges h3,
+.memory-game.is-hero-dark .mm-badge-name {
+  color: #e9e3ff;
+}
+
+.memory-game.is-hero-dark .mm-badge {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.memory-game.is-hero-dark .mm-badge.is-earned {
+  background: linear-gradient(160deg, #2c2350, #211e42);
+  border-color: #a855f7;
+}
+
+.memory-game.is-hero-dark .mm-next-goal {
+  background: linear-gradient(160deg, #2c2150, #241d44);
+  border-color: #a855f7;
+  color: #e9d5ff;
+}
+
+.memory-game.is-hero-dark .mm-next-goal-copy small {
+  color: #b9b1d6;
+}
+
+.memory-game.is-hero-dark .mm-next-goal-cta {
+  background: #a855f7;
+}
+
+.memory-game.is-hero-dark .mm-theme-progress,
+.memory-game.is-hero-dark .mm-badge-desc,
+.memory-game.is-hero-dark .mm-howto-step > span:last-child {
+  color: #a79dc8;
+}
+
+.memory-game.is-hero-dark .mm-howto-step {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.memory-game.is-hero-dark .mm-howto-step strong {
+  color: #f5f2ff;
+}
+
+.memory-game.is-hero-dark .mm-howto-tips {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.memory-game.is-hero-dark .mm-howto-tip {
+  color: #c3bbdd;
+}
+
+.memory-game.is-hero-dark .mm-restart-copy {
+  color: #bbb3d8;
+}
+
+.memory-game.is-hero-dark .mm-victory-best {
+  background: rgba(34, 197, 94, 0.2);
+  color: #bbf7d0;
+}
+
+.memory-game.is-hero-dark .mm-victory-daily {
+  color: #7dd3fc;
+}
+
+.memory-game.is-hero-dark .mm-victory-badge-line {
+  color: #d8b4fe;
+}
+
+.memory-game.is-hero-dark .mm-sticker:hover {
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 640px) {
+  .mm-badge-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mm-howto-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mm-album-stat {
+    min-width: 74px;
+  }
+
+  .mm-complete-bar {
+    align-items: flex-start;
+  }
+
+  .mm-daily-flag {
     display: none;
   }
 }

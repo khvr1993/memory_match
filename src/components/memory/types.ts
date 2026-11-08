@@ -67,6 +67,35 @@ export interface Scores {
 
 export type Winner = PlayerId | 'tie' | null;
 
+export interface GameSettings {
+  themeId: ThemeId;
+  difficultyId: DifficultyId;
+  mode: GameMode;
+}
+
+export interface StartOptions {
+  themeId?: ThemeId;
+  difficultyId?: DifficultyId;
+  mode?: GameMode;
+  daily?: boolean;
+}
+
+export type BadgeId =
+  | 'first-win'
+  | 'three-star'
+  | 'perfect-ten'
+  | 'theme-master'
+  | 'around-the-world'
+  | 'grand-collector'
+  | 'daily-spark'
+  | 'daily-flame';
+
+export interface DailyResultInfo {
+  dateKey: string;
+  streak: number;
+  isNew: boolean;
+}
+
 export interface VictorySummary {
   stars: number;
   moves: number;
@@ -74,4 +103,13 @@ export interface VictorySummary {
   scores: Scores;
   sticker: StickerRecord;
   isNew: boolean;
+  themeId: ThemeId;
+  difficultyId: DifficultyId;
+  mode: GameMode;
+  moveCounts: Scores;
+  isNewBest: boolean;
+  previousBest: number | null;
+  isDaily: boolean;
+  daily: DailyResultInfo | null;
+  newBadges: BadgeId[];
 }

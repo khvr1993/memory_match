@@ -85,6 +85,12 @@ button {
   text-transform: uppercase;
 }
 
+.mm-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .mm-sound-btn {
   display: inline-flex;
   align-items: center;

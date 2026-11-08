@@ -251,3 +251,13 @@ export function getStickerAward(themeId: ThemeId, difficultyId: DifficultyId): S
 }
 
 export const TOTAL_STICKERS = THEMES.length * DIFFICULTIES.length;
+export const TOTAL_STARS = THEMES.length * DIFFICULTIES.length * 3;
+
+export function preloadThemeImages(theme: MemoryTheme): void {
+  if (typeof Image === 'undefined') return;
+  for (const symbol of theme.symbols) {
+    if (!symbol.image) continue;
+    const image = new Image();
+    image.src = symbol.image;
+  }
+}

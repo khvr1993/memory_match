@@ -45,7 +45,6 @@ export const MemoryCardTile: React.FC<MemoryCardTileProps> = ({
       onClick={() => onFlip(card.uid)}
       disabled={disabled || matched}
       aria-label={label}
-      aria-pressed={faceUp}
       aria-hidden={peeking && !faceUp ? true : undefined}
     >
       <span className="mm-card-inner">
@@ -65,6 +64,7 @@ export const MemoryCardTile: React.FC<MemoryCardTileProps> = ({
               aria-hidden="true"
               loading="lazy"
               decoding="async"
+              draggable={false}
               onError={() => setImageFailed(true)}
             />
           ) : (
