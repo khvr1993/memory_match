@@ -81,9 +81,8 @@ export const MemoryMatchGame: React.FC = () => {
   const [themeId, setThemeId] = useState<ThemeId>(initialSettings.themeId);
   const [difficultyId, setDifficultyId] = useState<DifficultyId>(initialSettings.difficultyId);
   const [mode, setMode] = useState<GameMode>(initialSettings.mode);
-  const [cards, setCards] = useState<MemoryCard[]>(() =>
-    buildDeck(getTheme(initialSettings.themeId), getDifficulty(initialSettings.difficultyId))
-  );
+  const [view, setView] = useState<'setup' | 'game'>('setup');
+  const [cards, setCards] = useState<MemoryCard[]>([]);
   const [flipped, setFlipped] = useState<string[]>([]);
   const [matched, setMatched] = useState<Set<string>>(() => new Set());
   const [moves, setMoves] = useState(0);
@@ -105,6 +104,7 @@ export const MemoryMatchGame: React.FC = () => {
   const [heroDark, setHeroDark] = useState(() => readHeroDark());
   const [dailyChallenge, setDailyChallenge] = useState<DailyChallenge | null>(null);
   const [pendingStart, setPendingStart] = useState<StartOptions | null>(null);
+  const [pendingSetup, setPendingSetup] = useState(false);
   const [toast, setToast] = useState<{ id: number; text: string; tone: ToastTone } | null>(null);
   const [announcement, setAnnouncement] = useState({ id: 0, text: '' });
   const [luckyPulse, setLuckyPulse] = useState(false);
@@ -231,6 +231,38 @@ export const MemoryMatchGame: React.FC = () => {
     return () => window.clearTimeout(id);
   }, [showConfetti]);
 
+  const resetRoundState = () => {
+    setFlippedBoth([]);
+    setMatchedBoth(new Set());
+    movesRef.current = 0;
+    setMoves(0);
+    moveCountsRef.current = { teddy: 0, bunny: 0 };
+    setMoveCounts({ teddy: 0, bunny: 0 });
+    scoresRef.current = { teddy: 0, bunny: 0 };
+    setScores({ teddy: 0, bunny: 0 });
+    turnRef.current = 'teddy';
+    setTurn('teddy');
+    lockedRef.current = false;
+    setLocked(false);
+    peekingRef.current = false;
+    setPeeking(false);
+    peeksLeftRef.current = 2;
+    setPeeksLeft(2);
+    setWobble([]);
+    phaseRef.current = 'playing';
+    setPhase('playing');
+    setVictory(null);
+    setVictoryOpen(false);
+    setShowConfetti(false);
+    setPendingStart(null);
+    setPendingSetup(false);
+    setToast(null);
+    setLuckyPulse(false);
+  };
+
+  const hasRoundProgress = () =>
+    phaseRef.current === 'playing' && (movesRef.current > 0 || matchedRef.current.size > 0);
+
   const startGame = (next?: StartOptions) => {
     clearTimers();
     const daily = next?.daily ? getDailyChallenge() : null;
@@ -258,39 +290,51 @@ export const MemoryMatchGame: React.FC = () => {
         daily ? createSeededRandom(daily.seed) : Math.random
       )
     );
-    setFlippedBoth([]);
-    setMatchedBoth(new Set());
-    movesRef.current = 0;
-    setMoves(0);
-    moveCountsRef.current = { teddy: 0, bunny: 0 };
-    setMoveCounts({ teddy: 0, bunny: 0 });
-    scoresRef.current = { teddy: 0, bunny: 0 };
-    setScores({ teddy: 0, bunny: 0 });
-    turnRef.current = 'teddy';
-    setTurn('teddy');
-    lockedRef.current = false;
-    setLocked(false);
-    peekingRef.current = false;
-    setPeeking(false);
-    peeksLeftRef.current = 2;
-    setPeeksLeft(2);
-    setWobble([]);
-    phaseRef.current = 'playing';
-    setPhase('playing');
-    setVictory(null);
-    setVictoryOpen(false);
-    setShowConfetti(false);
+    resetRoundState();
     setAlbumOpen(false);
-    setPendingStart(null);
-    setToast(null);
-    setLuckyPulse(false);
+    setView('game');
     speech.stop();
   };
 
+  const selectSetup = (next: StartOptions) => {
+    const nextTheme = next.themeId ?? settingsRef.current.themeId;
+    const nextDifficulty = next.difficultyId ?? settingsRef.current.difficultyId;
+    const nextMode = next.mode ?? settingsRef.current.mode;
+    const nextSettings: GameSettings = {
+      themeId: nextTheme,
+      difficultyId: nextDifficulty,
+      mode: nextMode,
+    };
+    settingsRef.current = nextSettings;
+    writeSettings(nextSettings);
+    setThemeId(nextTheme);
+    setDifficultyId(nextDifficulty);
+    setMode(nextMode);
+    dailyRef.current = null;
+    setDailyChallenge(null);
+  };
+
+  const goToSetup = () => {
+    clearTimers();
+    resetRoundState();
+    setCards([]);
+    dailyRef.current = null;
+    setDailyChallenge(null);
+    setAlbumOpen(false);
+    setView('setup');
+    speech.stop();
+  };
+
+  const requestSetup = () => {
+    if (!hasRoundProgress()) {
+      goToSetup();
+      return;
+    }
+    setPendingSetup(true);
+  };
+
   const requestStart = (next?: StartOptions) => {
-    const hasProgress =
-      phaseRef.current === 'playing' && (movesRef.current > 0 || matchedRef.current.size > 0);
-    if (!hasProgress) {
+    if (!hasRoundProgress()) {
       startGame(next);
       return;
     }
@@ -560,17 +604,16 @@ export const MemoryMatchGame: React.FC = () => {
       : undefined;
 
   return (
-    <div className={`memory-game theme-${themeId} ${isHeroDark ? 'is-hero-dark' : ''}`}>
+    <div
+      className={`memory-game theme-${themeId} ${isHeroDark ? 'is-hero-dark' : ''} ${
+        view === 'setup' ? 'is-setup' : 'is-playing'
+      }`}
+    >
       <div className="mm-sr-only" aria-live="polite" aria-atomic="true">
         {announcement.text}
       </div>
 
       <section className="mm-hero">
-        <div className="mm-hero-mascots" aria-hidden="true">
-          <span>🐻</span>
-          <span>🪄</span>
-          <span>🐰</span>
-        </div>
         <div className="mm-hero-copy">
           <span className="mm-kicker">Kids Corner · Ages 4+</span>
           <h1>
@@ -596,9 +639,11 @@ export const MemoryMatchGame: React.FC = () => {
               {dailyDoneToday ? '✅' : activeStreak > 0 ? `🔥 ${activeStreak}` : 'New'}
             </span>
           </button>
-          <button type="button" className="mm-btn mm-btn-ghost" onClick={() => requestStart()}>
-            <span aria-hidden="true">🔄</span> New Game
-          </button>
+          {view === 'game' && (
+            <button type="button" className="mm-btn mm-btn-ghost" onClick={requestSetup}>
+              <span aria-hidden="true">🔄</span> New Game
+            </button>
+          )}
           <button type="button" className="mm-btn mm-btn-ghost" onClick={() => setShowHowTo(true)}>
             <span aria-hidden="true">❓</span> How to play
           </button>
@@ -617,7 +662,8 @@ export const MemoryMatchGame: React.FC = () => {
         </div>
       </section>
 
-      <section className="mm-controls">
+      {view === 'setup' && (
+        <section className="mm-controls">
         <div className="mm-control-block">
           <span className="mm-section-label">1 · Pick a theme</span>
           <div className="mm-theme-ribbon" role="group" aria-label="Choose a theme">
@@ -626,7 +672,7 @@ export const MemoryMatchGame: React.FC = () => {
                 key={item.id}
                 type="button"
                 className={`mm-theme-pill ${themeId === item.id ? 'is-active' : ''}`}
-                onClick={() => requestStart({ themeId: item.id })}
+                onClick={() => selectSetup({ themeId: item.id })}
                 aria-pressed={themeId === item.id}
               >
                 <span className="mm-theme-icon" aria-hidden="true">
@@ -656,7 +702,7 @@ export const MemoryMatchGame: React.FC = () => {
                     ]
                       .filter(Boolean)
                       .join(' ')}
-                    onClick={() => requestStart({ difficultyId: item.id })}
+                    onClick={() => selectSetup({ difficultyId: item.id })}
                     aria-pressed={difficultyId === item.id}
                     aria-label={`${item.name}, ${item.gridLabel}${
                       record
@@ -679,7 +725,7 @@ export const MemoryMatchGame: React.FC = () => {
               <button
                 type="button"
                 className={mode === 'solo' ? 'is-active' : ''}
-                onClick={() => requestStart({ mode: 'solo' })}
+                onClick={() => selectSetup({ mode: 'solo' })}
                 aria-pressed={mode === 'solo'}
               >
                 <span aria-hidden="true">🧒</span> Solo
@@ -687,7 +733,7 @@ export const MemoryMatchGame: React.FC = () => {
               <button
                 type="button"
                 className={mode === 'duo' ? 'is-active' : ''}
-                onClick={() => requestStart({ mode: 'duo' })}
+                onClick={() => selectSetup({ mode: 'duo' })}
                 aria-pressed={mode === 'duo'}
               >
                 <span aria-hidden="true">🐻🐰</span> Two players
@@ -695,8 +741,28 @@ export const MemoryMatchGame: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
 
+        <div className="mm-setup-footer">
+          <p className="mm-setup-summary">
+            <span aria-hidden="true">{theme.icon}</span>
+            <span>
+              <strong>{theme.name}</strong> · {difficulty.name} · {difficulty.gridLabel} ·{' '}
+              {difficulty.pairs} pairs{mode === 'duo' ? ' · Two players' : ''}
+            </span>
+          </p>
+          <button
+            type="button"
+            className="mm-btn mm-btn-primary mm-start-btn"
+            onClick={() => startGame()}
+          >
+            Start game <span aria-hidden="true">▶</span>
+          </button>
+        </div>
+        </section>
+      )}
+
+      {view === 'game' && (
+        <>
       <section className="mm-scoreboard" aria-label="Game status">
         <div className="mm-score-main">
           {isDuo ? (
@@ -821,6 +887,8 @@ export const MemoryMatchGame: React.FC = () => {
         <p className="mm-lucky-hint">
           Match a card beside the ⭐ Lucky Star to earn an extra peek.
         </p>
+      )}
+        </>
       )}
 
       {victory && !victoryOpen && (
@@ -1026,6 +1094,53 @@ export const MemoryMatchGame: React.FC = () => {
             </button>
             <button type="button" className="mm-btn mm-btn-primary" onClick={confirmPendingStart}>
               Start new game
+            </button>
+          </div>
+        </Modal>
+      )}
+
+      {pendingSetup && (
+        <Modal
+          titleId="mm-setup-title"
+          onClose={() => setPendingSetup(false)}
+          className="mm-restart"
+          closeOnBackdrop={false}
+          initialFocusSelector=".mm-btn-ghost"
+        >
+          <div className="mm-modal-head">
+            <div>
+              <h2 id="mm-setup-title">Choose a new game?</h2>
+              <p className="mm-modal-sub">
+                You have found {pairsFound} of {difficulty.pairs} pairs.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="mm-close-btn"
+              onClick={() => setPendingSetup(false)}
+              aria-label="Keep playing"
+            >
+              ✕
+            </button>
+          </div>
+          <p className="mm-restart-copy">Your current board will be lost.</p>
+          <div className="mm-modal-footer">
+            <button
+              type="button"
+              className="mm-btn mm-btn-ghost"
+              onClick={() => setPendingSetup(false)}
+            >
+              Keep playing
+            </button>
+            <button
+              type="button"
+              className="mm-btn mm-btn-primary"
+              onClick={() => {
+                setPendingSetup(false);
+                goToSetup();
+              }}
+            >
+              Choose new game
             </button>
           </div>
         </Modal>

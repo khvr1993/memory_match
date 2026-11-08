@@ -4,7 +4,9 @@ import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { GameProvider } from '../../context/GameContext';
 import { MemoryCardTile } from './MemoryCard';
+import { MemoryMatchGame } from './MemoryMatchGame';
 import type { MemoryCard, MemorySymbol } from './types';
 import {
   STICKER_STORAGE_KEY,
@@ -271,6 +273,20 @@ test('emoji cards use the full-bleed emoji tile', () => {
   assert.ok(html.includes('mm-card-emoji'));
   assert.ok(html.includes('aria-label="Lion, King of the jungle"'));
   assert.ok(html.includes('title="King of the jungle"'));
+});
+
+test('the game opens on setup without a board, stats, or mascots', () => {
+  const html = renderToStaticMarkup(
+    React.createElement(GameProvider, null, React.createElement(MemoryMatchGame))
+  );
+
+  assert.ok(html.includes('Pick a theme'));
+  assert.ok(html.includes('Choose a size'));
+  assert.ok(html.includes('Start game'));
+  assert.ok(html.includes('mm-controls'));
+  assert.equal(html.includes('mm-board'), false);
+  assert.equal(html.includes('mm-scoreboard'), false);
+  assert.equal(html.includes('mm-hero-mascots'), false);
 });
 
 test('theme images are isolated by asset directory and exist', () => {
