@@ -39,7 +39,12 @@ export const StickerAlbumModal: React.FC<StickerAlbumModalProps> = ({
   }, [stickers]);
 
   const stickerCount = useMemo(
-    () => stickers.filter((sticker) => THEMES.some((theme) => theme.id === sticker.themeId)).length,
+    () =>
+      stickers.filter(
+        (sticker) =>
+          THEMES.some((theme) => theme.id === sticker.themeId) &&
+          DIFFICULTIES.some((difficulty) => difficulty.id === sticker.difficultyId)
+      ).length,
     [stickers]
   );
   const totalStars = getTotalStars(progress);

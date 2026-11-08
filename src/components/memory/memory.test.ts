@@ -150,12 +150,22 @@ test('readStickers ignores malformed entries', () => {
   assert.equal(stickers[0].id, 'animals:toddler');
 });
 
-test('every theme has enough symbols for the 7x7 mythic board', () => {
+test('every theme has enough symbols for the largest board', () => {
+  const maxPairs = Math.max(...DIFFICULTIES.map((difficulty) => difficulty.pairs));
   for (const theme of THEMES) {
-    assert.ok(theme.symbols.length >= 24, `${theme.id} needs at least 24 symbols`);
+    assert.ok(
+      theme.symbols.length >= maxPairs,
+      `${theme.id} needs at least ${maxPairs} symbols`
+    );
     const ids = new Set(theme.symbols.map((symbol) => symbol.id));
     assert.equal(ids.size, theme.symbols.length, `${theme.id} has duplicate symbol ids`);
   }
+});
+
+test('the largest board is 6x6 and the 7x7 tier is gone', () => {
+  const maxColumns = Math.max(...DIFFICULTIES.map((difficulty) => difficulty.columns));
+  assert.equal(maxColumns, 6);
+  assert.equal(DIFFICULTIES.some((difficulty) => difficulty.id === 'mythic'), false);
 });
 
 test('legend is a 5x5 board with 12 pairs and a lucky center cell', () => {
@@ -184,22 +194,8 @@ test('master is a 6x6 board with 18 pairs and 36 cards', () => {
   assert.equal(new Set(deck.map((card) => card.pairId)).size, 18);
 });
 
-test('mythic is a 7x7 board with 24 pairs, 48 cards, and a lucky center cell', () => {
-  const mythic = DIFFICULTIES.find((difficulty) => difficulty.id === 'mythic');
-  if (!mythic) throw new Error('mythic difficulty is missing');
-  assert.equal(mythic.gridLabel, '7 × 7');
-  assert.equal(mythic.columns, 7);
-  assert.equal(mythic.pairs, 24);
-  assert.equal(mythic.centerStar, true);
-
-  const deck = buildDeck(getTheme('superheroes'), mythic, seededRandom(29));
-  assert.equal(deck.length, 48);
-  assert.equal(new Set(deck.map((card) => card.pairId)).size, 24);
-});
-
 test('lucky cell sits at the visual center and maps card indexes around it', () => {
   assert.equal(getLuckyCellIndex(24), 12);
-  assert.equal(getLuckyCellIndex(48), 24);
   assert.equal(getCardGridIndex(11, 12), 11);
   assert.equal(getCardGridIndex(12, 12), 13);
 });
@@ -210,15 +206,6 @@ test('only the four cards beside the lucky cell earn the bonus on a 5x5 board', 
   }
   for (const index of [0, 6, 8, 13, 17, 23]) {
     assert.equal(isAdjacentToLuckyCell(index, 24, 5), false, `index ${index} should not be adjacent`);
-  }
-});
-
-test('only the four cards beside the lucky cell earn the bonus on a 7x7 board', () => {
-  for (const index of [17, 23, 24, 30]) {
-    assert.equal(isAdjacentToLuckyCell(index, 48, 7), true, `index ${index} should be adjacent`);
-  }
-  for (const index of [0, 16, 25, 31, 47]) {
-    assert.equal(isAdjacentToLuckyCell(index, 48, 7), false, `index ${index} should not be adjacent`);
   }
 });
 

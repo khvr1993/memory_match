@@ -58,9 +58,12 @@ const HERO_DARK_KEY = 'memory_match_hero_dark';
 const ONBOARDED_KEY = 'memory_match_onboarded_v1';
 const MAX_PEEKS = 5;
 const THEME_IDS = new Set<string>(THEMES.map((theme) => theme.id));
+const DIFFICULTY_IDS = new Set<string>(DIFFICULTIES.map((difficulty) => difficulty.id));
 
 function countStickers(list: StickerRecord[]): number {
-  return list.filter((sticker) => THEME_IDS.has(sticker.themeId)).length;
+  return list.filter(
+    (sticker) => THEME_IDS.has(sticker.themeId) && DIFFICULTY_IDS.has(sticker.difficultyId)
+  ).length;
 }
 
 const readHeroDark = () => {
@@ -505,8 +508,7 @@ export const MemoryMatchGame: React.FC = () => {
     announce('All cards revealed');
 
     const activeDifficulty = getDifficulty(settingsRef.current.difficultyId);
-    const peekDuration =
-      activeDifficulty.columns >= 7 ? 3500 : activeDifficulty.columns >= 6 ? 3000 : 2000;
+    const peekDuration = activeDifficulty.columns >= 6 ? 3000 : 2000;
     later(() => {
       peekingRef.current = false;
       setPeeking(false);
@@ -784,7 +786,6 @@ export const MemoryMatchGame: React.FC = () => {
             'mm-board',
             difficulty.columns >= 5 ? 'is-dense' : '',
             difficulty.columns >= 6 ? 'is-ultra-dense' : '',
-            difficulty.columns >= 7 ? 'is-mega-dense' : '',
           ]
             .filter(Boolean)
             .join(' ')}

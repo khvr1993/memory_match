@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import type { StorageLike } from './gameLogic';
+import { TOTAL_STICKERS } from './themesData';
 import {
   PROGRESS_STORAGE_KEY,
   createEmptyProgress,
@@ -178,7 +179,9 @@ test('badges unlock from real progress thresholds', () => {
   assert.equal(earned.get('perfect-ten'), false);
   assert.equal(earned.get('grand-collector'), false);
 
-  const collector = getBadges(progress, 42).find((badge) => badge.id === 'grand-collector');
+  const collector = getBadges(progress, TOTAL_STICKERS).find(
+    (badge) => badge.id === 'grand-collector'
+  );
   assert.equal(collector?.earned, true);
 });
 

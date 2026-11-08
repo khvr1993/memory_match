@@ -24,6 +24,7 @@ export const MemoryCardTile: React.FC<MemoryCardTileProps> = ({
 }) => {
   const { symbol } = card;
   const [imageFailed, setImageFailed] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const showImage = Boolean(symbol.image) && !imageFailed;
   const label = faceUp
     ? `${symbol.name}${matched ? ', matched' : ''}`
@@ -57,16 +58,25 @@ export const MemoryCardTile: React.FC<MemoryCardTileProps> = ({
         </span>
         <span className="mm-face mm-face-front">
           {showImage ? (
-            <img
-              className="mm-card-portrait"
-              src={symbol.image}
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-              decoding="async"
-              draggable={false}
-              onError={() => setImageFailed(true)}
-            />
+            <span
+              className="mm-card-portrait-wrap"
+              style={{ '--card-accent': symbol.accent } as React.CSSProperties}
+            >
+              <span className="mm-card-portrait-fallback" aria-hidden="true">
+                {symbol.emoji}
+              </span>
+              <img
+                className={`mm-card-portrait ${imageLoaded ? 'is-loaded' : ''}`}
+                src={symbol.image}
+                alt=""
+                aria-hidden="true"
+                loading="eager"
+                decoding="async"
+                draggable={false}
+                onLoad={() => setImageLoaded(true)}
+                onError={() => setImageFailed(true)}
+              />
+            </span>
           ) : (
             <span className="mm-card-emoji" aria-hidden="true">
               {symbol.emoji}

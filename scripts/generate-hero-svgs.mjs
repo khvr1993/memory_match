@@ -266,8 +266,10 @@ const heroes = {
       <path d="M188 360 L256 432 L324 360 L310 512 L202 512 Z" fill="url(#accent)"/>
       <path d="M210 366 L256 416 L302 366" fill="none" stroke="#1e3a8a" stroke-width="10" stroke-linecap="round"/>
       <path d="M216 452 L256 486 L296 452" fill="none" stroke="#1e3a8a" stroke-width="8" opacity=".5"/>
-      <path d="M132 372 C160 350 196 346 226 350" fill="none" stroke="url(#accent)" stroke-width="16" stroke-linecap="round"/>
-      <path d="M380 372 C352 350 316 346 286 350" fill="none" stroke="url(#accent)" stroke-width="16" stroke-linecap="round"/>
+      <path d="M126 376 C156 344 196 338 228 348 L220 386 C192 378 160 384 138 402 Z" fill="url(#accent)"/>
+      <path d="M386 376 C356 344 316 338 284 348 L292 386 C320 378 352 384 374 402 Z" fill="url(#accent)"/>
+      <path d="M132 380 C158 356 188 350 214 356" fill="none" stroke="#1e3a8a" stroke-width="5" opacity=".45"/>
+      <path d="M380 380 C354 356 324 350 298 356" fill="none" stroke="#1e3a8a" stroke-width="5" opacity=".45"/>
     `,
     face: { eyes: 'none', mouth: 'none' },
     overlay: `
@@ -286,14 +288,162 @@ const heroes = {
       <path d="M336 184 C366 160 394 126 406 100 C368 122 338 148 318 178 Z" fill="#111827"/>
       <path d="M180 184 C154 162 132 136 120 116 C152 136 176 158 192 178 Z" fill="#334155" opacity=".45"/>
       <path d="M332 184 C358 162 380 136 392 116 C360 136 336 158 320 178 Z" fill="#334155" opacity=".45"/>
+      <path d="M184 190 L252 180 L244 220 L188 222 Z" fill="#0f172a"/>
+      <path d="M328 190 L260 180 L268 220 L324 222 Z" fill="#0f172a"/>
       <path d="M192 198 L248 188 L240 212 L198 216 Z" fill="#f8fafc"/>
       <path d="M320 198 L264 188 L272 212 L314 216 Z" fill="#f8fafc"/>
-      <path d="M192 198 L248 188" stroke="#0f172a" stroke-width="7" stroke-linecap="round"/>
-      <path d="M320 198 L264 188" stroke="#0f172a" stroke-width="7" stroke-linecap="round"/>
+      <path d="M192 198 L248 188" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/>
+      <path d="M320 198 L264 188" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/>
       <path d="M196 206 C206 246 210 268 206 292" fill="none" stroke="#000" stroke-width="8" opacity=".1" stroke-linecap="round"/>
       <path d="M316 206 C306 246 302 268 306 292" fill="none" stroke="#000" stroke-width="8" opacity=".1" stroke-linecap="round"/>
     `,
     hairFront: '',
+    foreground: `
+      <g fill="url(#metal)" stroke="#475569" stroke-width="3">
+        <path d="M338 476 L364 384 L376 390 L356 484 Z"/>
+        <path d="M358 476 L384 378 L396 384 L376 484 Z"/>
+        <path d="M378 476 L404 372 L416 378 L396 484 Z"/>
+      </g>
+      <path d="M330 470 C346 444 394 440 418 470 L414 512 L334 512 Z" fill="#1e3a8a"/>
+      <path d="M342 470 C358 454 392 452 408 470" fill="none" stroke="#3b5bb5" stroke-width="6" opacity=".7"/>
+    `,
+  },
+
+  thor: {
+    bg: ['#cbd5e1', '#1e293b'],
+    suit: ['#94a3b8', '#475569', '#1e293b'],
+    skin: { light: '#f8d2b2', mid: '#e7a87c', dark: '#c07b54', shadow: '#8f4f35' },
+    hair: ['#fde68a', '#b45309'],
+    metal: ['#e2e8f0', '#64748b'],
+    accent: ['#fef08a', '#f59e0b'],
+    cape: ['#dc2626', '#7f1d1d'],
+    eye: { iris: '#3b82f6', brow: '#8a5a1a' },
+    lip: '#9a4a3f',
+    bodyExtras: `
+      <path d="M196 378 L256 424 L316 378 L330 512 L182 512 Z" fill="url(#metal)"/>
+      <path d="M200 390 L256 430 L312 390" fill="none" stroke="#f8fafc" stroke-width="6" opacity=".45"/>
+      <circle cx="214" cy="390" r="24" fill="#cbd5e1" stroke="#64748b" stroke-width="6"/>
+      <circle cx="298" cy="390" r="24" fill="#cbd5e1" stroke="#64748b" stroke-width="6"/>
+      <circle cx="214" cy="390" r="10" fill="#64748b"/>
+      <circle cx="298" cy="390" r="10" fill="#64748b"/>
+      <path d="M120 370 C150 356 184 352 214 358" fill="none" stroke="#dc2626" stroke-width="18" stroke-linecap="round"/>
+      <path d="M392 370 C362 356 328 352 298 358" fill="none" stroke="#dc2626" stroke-width="18" stroke-linecap="round"/>
+      <path d="M256 430 L256 512" stroke="#f59e0b" stroke-width="8" opacity=".7"/>
+    `,
+    face: { mouth: 'smile' },
+    hairBack: `
+      <path d="M176 180 C160 250 164 320 180 360 C192 312 194 250 198 210 Z" fill="url(#hair)"/>
+      <path d="M336 180 C352 250 348 320 332 360 C320 312 318 250 314 210 Z" fill="url(#hair)"/>
+    `,
+    overlay: `
+      <path d="M170 184 C174 118 210 84 256 84 C302 84 338 118 342 184 C334 148 300 124 256 124 C212 124 178 148 170 184 Z" fill="url(#metal)"/>
+      <path d="M170 184 C210 166 302 166 342 184" fill="none" stroke="#f59e0b" stroke-width="9"/>
+      <path d="M172 172 C140 150 112 122 94 96 C130 112 164 136 186 166 Z" fill="url(#metal)"/>
+      <path d="M340 172 C372 150 400 122 418 96 C382 112 348 136 326 166 Z" fill="url(#metal)"/>
+      <path d="M116 118 L154 150 M130 108 L166 140 M146 100 L180 132" stroke="#94a3b8" stroke-width="4" opacity=".65"/>
+      <path d="M396 118 L358 150 M382 108 L346 140 M366 100 L332 132" stroke="#94a3b8" stroke-width="4" opacity=".65"/>
+      <path d="M186 190 C176 240 180 292 192 332 C200 290 202 240 204 206 Z" fill="url(#hair)"/>
+      <path d="M326 190 C336 240 332 292 320 332 C312 290 310 240 308 206 Z" fill="url(#hair)"/>
+      <path d="M198 246 C210 306 302 306 314 246 C312 314 288 336 256 336 C224 336 200 314 198 246 Z" fill="url(#hair)"/>
+      <path d="M210 268 C222 310 290 310 302 268" fill="none" stroke="#d97706" stroke-width="4" opacity=".45"/>
+      <path d="M226 268 Q256 256 286 268" fill="none" stroke="#7c2d12" stroke-width="8" stroke-linecap="round"/>
+    `,
+    foreground: `
+      <path d="M228 284 Q256 296 284 284" fill="none" stroke="#7c2d12" stroke-width="6" stroke-linecap="round"/>
+      <g transform="translate(358 418) rotate(-16)">
+        <rect width="96" height="52" rx="9" fill="url(#metal)" stroke="#475569" stroke-width="6"/>
+        <rect x="10" y="9" width="76" height="34" rx="5" fill="#cbd5e1"/>
+        <rect x="40" y="52" width="16" height="54" rx="6" fill="#78350f"/>
+        <path d="M40 62 L56 62" stroke="#f59e0b" stroke-width="5"/>
+      </g>
+    `,
+  },
+
+  'black-panther': {
+    bg: ['#c4b5fd', '#4c1d95'],
+    suit: ['#312e81', '#0f172a', '#020617'],
+    skin: { light: '#1f2937', mid: '#0f172a', dark: '#020617', shadow: '#000000' },
+    mask: ['#4c1d95', '#1e293b', '#020617'],
+    metal: ['#e2e8f0', '#64748b'],
+    accent: ['#e9d5ff', '#7c3aed'],
+    eye: { iris: '#e2e8f0', brow: '#111827' },
+    collarColor: 'url(#metal)',
+    bodyExtras: `
+      <path d="M196 378 L256 424 L316 378 L330 512 L182 512 Z" fill="#0f172a"/>
+      <path d="M196 378 L256 424 L316 378" fill="none" stroke="#a78bfa" stroke-width="6" opacity=".8"/>
+      <path d="M132 380 C160 356 190 350 218 356" fill="none" stroke="#7c3aed" stroke-width="8" opacity=".7"/>
+      <path d="M380 380 C352 356 322 350 294 356" fill="none" stroke="#7c3aed" stroke-width="8" opacity=".7"/>
+      <g fill="url(#metal)" stroke="#94a3b8" stroke-width="2">
+        <path d="M214 398 L222 440 L230 398 Z"/>
+        <path d="M236 398 L244 448 L252 398 Z"/>
+        <path d="M258 398 L266 448 L274 398 Z"/>
+        <path d="M280 398 L288 440 L296 398 Z"/>
+      </g>
+      <path d="M208 390 C230 410 282 410 304 390" fill="none" stroke="#cbd5e1" stroke-width="3" opacity=".6"/>
+    `,
+    skipFace: true,
+    overlay: `
+      <path d="${HEAD_PATH}" fill="url(#mask)"/>
+      <path d="M188 106 L168 56 L216 86 Z" fill="url(#mask)" stroke="#a78bfa" stroke-width="3"/>
+      <path d="M324 106 L344 56 L296 86 Z" fill="url(#mask)" stroke="#a78bfa" stroke-width="3"/>
+      <path d="M196 114 L184 80 L210 96 Z" fill="#7c3aed" opacity=".55"/>
+      <path d="M316 114 L328 80 L302 96 Z" fill="#7c3aed" opacity=".55"/>
+      <path d="M184 190 L250 180 L242 214 L190 218 Z" fill="#e2e8f0"/>
+      <path d="M328 190 L262 180 L270 214 L322 218 Z" fill="#e2e8f0"/>
+      <path d="M184 190 L250 180" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+      <path d="M328 190 L262 180" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+      <path d="M226 250 C238 238 274 238 286 250 C274 274 238 274 226 250 Z" fill="#0f172a"/>
+      <path d="M256 240 L256 262" stroke="#64748b" stroke-width="3" opacity=".45"/>
+      <path d="M214 258 C226 306 286 306 298 258" fill="none" stroke="#4c1d95" stroke-width="5" opacity=".7"/>
+      <path d="M190 230 C198 270 204 292 202 312" fill="none" stroke="#7c3aed" stroke-width="3" opacity=".5"/>
+      <path d="M322 230 C314 270 308 292 310 312" fill="none" stroke="#7c3aed" stroke-width="3" opacity=".5"/>
+      <path d="M204 302 C230 322 282 322 308 302" fill="none" stroke="#e2e8f0" stroke-width="5" opacity=".35"/>
+    `,
+  },
+
+  'doctor-strange': {
+    bg: ['#ddd6fe', '#5b21b6'],
+    suit: ['#1e40af', '#1e3a8a', '#172554'],
+    skin: { light: '#f8d2b2', mid: '#e7a87c', dark: '#c07b54', shadow: '#8f4f35' },
+    hair: ['#3b2318', '#1c110b'],
+    accent: ['#fef08a', '#f59e0b'],
+    cape: ['#dc2626', '#7f1d1d'],
+    eye: { iris: '#4b5563', brow: '#2b1a0e' },
+    lip: '#8c4a3a',
+    bodyExtras: `
+      <path d="M120 374 C150 350 190 344 220 354 L256 390 L292 354 C322 344 362 350 392 374 L384 512 L128 512 Z" fill="url(#cape)" opacity=".92"/>
+      <path d="M196 378 L256 424 L316 378 L330 512 L182 512 Z" fill="url(#suit)"/>
+      <path d="M196 378 L256 424 L316 378" fill="none" stroke="#f59e0b" stroke-width="7"/>
+      <circle cx="256" cy="452" r="26" fill="#f59e0b"/>
+      <circle cx="256" cy="452" r="16" fill="#065f46"/>
+      <circle cx="256" cy="452" r="8" fill="#fef08a"/>
+      <path d="M256 424 L256 438" stroke="#f59e0b" stroke-width="6"/>
+      <path d="M220 354 L256 390 L292 354" fill="none" stroke="#fca5a5" stroke-width="5" opacity=".5"/>
+    `,
+    face: { mouth: 'smile' },
+    hairBack: '',
+    hairFront: `
+      <path d="M164 200 C160 128 198 82 256 82 C314 82 352 128 348 200 C342 160 318 136 256 136 C204 136 174 158 164 200 Z" fill="url(#hair)"/>
+      <path d="M186 160 C198 142 220 132 244 130" fill="none" stroke="#fff" stroke-width="5" opacity=".14"/>
+      <path d="M176 172 C172 198 176 222 184 244 C180 216 180 190 184 170 Z" fill="#cbd5e1"/>
+      <path d="M336 172 C340 198 336 222 328 244 C332 216 332 190 328 170 Z" fill="#cbd5e1"/>
+      <path d="M238 84 C250 104 252 122 248 140" fill="none" stroke="#fff" stroke-width="4" opacity=".16"/>
+    `,
+    overlay: `
+      <path d="M188 332 C200 300 226 290 256 290 C286 290 312 300 324 332 L324 358 L188 358 Z" fill="#1e3a8a"/>
+      <path d="M188 332 C200 300 226 290 256 290 C286 290 312 300 324 332" fill="none" stroke="#f59e0b" stroke-width="5"/>
+      <path d="M212 268 C220 312 292 312 300 268 C300 310 282 328 256 328 C230 328 212 310 212 268 Z" fill="url(#hair)"/>
+      <path d="M230 260 Q256 250 282 260" fill="none" stroke="#2b1a0e" stroke-width="7" stroke-linecap="round"/>
+      <path d="M242 270 Q256 282 270 270" fill="none" stroke="#2b1a0e" stroke-width="5" stroke-linecap="round"/>
+    `,
+    foreground: `
+      <circle cx="118" cy="382" r="54" fill="none" stroke="#fbbf24" stroke-width="4" opacity=".5"/>
+      <circle cx="118" cy="382" r="40" fill="none" stroke="#fbbf24" stroke-width="2" opacity=".4"/>
+      <path d="M118 328 L118 436 M64 382 L172 382 M80 344 L156 420 M156 344 L80 420" stroke="#fbbf24" stroke-width="2" opacity=".35"/>
+      <circle cx="394" cy="382" r="54" fill="none" stroke="#fbbf24" stroke-width="4" opacity=".5"/>
+      <circle cx="394" cy="382" r="40" fill="none" stroke="#fbbf24" stroke-width="2" opacity=".4"/>
+      <path d="M394 328 L394 436 M340 382 L448 382 M356 344 L432 420 M432 344 L356 420" stroke="#fbbf24" stroke-width="2" opacity=".35"/>
+    `,
   },
 
   'captain-marvel': {
@@ -559,16 +709,34 @@ const heroes = {
       <path d="M384 512 L352 382 L316 512 Z" fill="#2e1065"/>
       <path d="M182 372 L334 512" stroke="#312e81" stroke-width="26" opacity=".9"/>
       <path d="M196 382 L256 430 L316 382" fill="none" stroke="#c4b5fd" stroke-width="8" stroke-linecap="round" opacity=".75"/>
-      <path d="M406 328 C456 382 456 464 406 512" fill="none" stroke="#7c3aed" stroke-width="12"/>
-      <path d="M406 328 L406 512" stroke="#e9d5ff" stroke-width="2.5"/>
-      <rect x="396" y="406" width="20" height="38" rx="8" fill="#312e81"/>
-      <path d="M406 328 L432 346 L432 362" fill="none" stroke="#c4b5fd" stroke-width="4"/>
-      <path d="M406 512 L432 494 L432 478" fill="none" stroke="#c4b5fd" stroke-width="4"/>
+      <circle cx="256" cy="440" r="34" fill="#ede9fe" opacity=".9"/>
+      <circle cx="256" cy="440" r="26" fill="#7c3aed"/>
+      <circle cx="256" cy="440" r="16" fill="#ede9fe"/>
+      <circle cx="256" cy="440" r="7" fill="#7c3aed"/>
+      <path d="M330 356 L372 344 L386 430 L344 442 Z" fill="#312e81" opacity=".95"/>
+      <path d="M338 346 L330 306 M352 342 L350 302 M366 338 L372 300" stroke="#ddd6fe" stroke-width="5" stroke-linecap="round"/>
+      <path d="M330 306 L322 292 L338 300 Z" fill="#c4b5fd"/>
+      <path d="M350 302 L344 288 L358 296 Z" fill="#c4b5fd"/>
+      <path d="M372 300 L368 286 L380 294 Z" fill="#c4b5fd"/>
     `,
     face: { mouth: 'smile' },
     hairBack: '',
     hairFront: shortHair(),
-    overlay: '',
+    overlay: `
+      <path d="M166 190 C190 172 236 174 256 194 C276 174 322 172 346 190 C334 222 302 234 282 216 C270 204 264 202 256 210 C248 202 242 204 230 216 C210 234 178 222 166 190 Z" fill="#6d28d9"/>
+      <path d="M166 190 C190 172 236 174 256 194 C276 174 322 172 346 190" fill="none" stroke="#c4b5fd" stroke-width="5" opacity=".5"/>
+      <ellipse cx="220" cy="200" rx="22" ry="12" fill="#ede9fe"/>
+      <ellipse cx="292" cy="200" rx="22" ry="12" fill="#ede9fe"/>
+      <ellipse cx="220" cy="200" rx="11" ry="6" fill="#c4b5fd" opacity=".7"/>
+      <ellipse cx="292" cy="200" rx="11" ry="6" fill="#c4b5fd" opacity=".7"/>
+    `,
+    foreground: `
+      <path d="M396 312 C462 368 462 462 396 518" fill="none" stroke="#7c3aed" stroke-width="14"/>
+      <path d="M396 312 L396 518" stroke="#ede9fe" stroke-width="2.5"/>
+      <rect x="384" y="398" width="24" height="46" rx="10" fill="#312e81"/>
+      <path d="M396 312 L428 334 L428 350" fill="none" stroke="#c4b5fd" stroke-width="4"/>
+      <path d="M396 518 L428 496 L428 480" fill="none" stroke="#c4b5fd" stroke-width="4"/>
+    `,
   },
 
   supergirl: {
